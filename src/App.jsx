@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
   const [data, setData] = useState(null);
   const fetchUserData = async () => {
-    const response = await fetch("http://localhost:7071/api/getData", {
+    const response = await fetch("/api/getData", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

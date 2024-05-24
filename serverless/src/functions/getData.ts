@@ -5,6 +5,10 @@ import {
   InvocationContext,
 } from "@azure/functions";
 
+import dataService from "../services/dataService/dataService";
+
+const dataFromService = new dataService();
+
 export async function getData(
   request: HttpRequest,
   context: InvocationContext
@@ -22,6 +26,8 @@ export async function getData(
     designation: "sde2",
   };
 
+  const data = await dataFromService.getData();
+
   return {
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +35,7 @@ export async function getData(
     jsonBody: {
       status: 200,
       message: "success",
-      userData,
+      data,
     },
   };
 }

@@ -1,26 +1,152 @@
 import { useState } from "react";
+import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [data, setData] = useState(null);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [age, setAge] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [postData, setPostData] = useState(null);
+  const [getData, setGetData] = useState(null);
+
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("phone", phone);
+  formData.append("age", age);
+  formData.append("email", email);
+  formData.append("password", password);
+
+  console.log(formData);
+
+  // const dataToPost = {
+  //   name: name,
+  //   phone: phone,
+  //   age: age,
+  //   email: email,
+  //   password: password,
+  // };
+
+  // console.log(dataToPost);
+
   const fetchUserData = async () => {
-    const response = await fetch("/api/getData", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        throw new Error(error);
+    try {
+      const gettingData = await fetch("/api/v1/getData", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((gotData) => {
+        return gotData.json();
       });
-    return setData(response);
+      console.log(gettingData);
+      return setGetData(gettingData);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const postUserData = async () => {
+    // try {
+    //   const postingData = await fetch("/api/v1/postData", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //     formData,
+    //   });
+    //   console.log(postingData);
+    //   setPostData(postingData);
+    // } catch (error) {
+    //   throw new Error(error);
+    // }
+
+    try {
+      const response = await axios.post("/api/v1/postData", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response);
+      setPostData(response);
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
   };
 
   return (
     <>
-      <div>{data ? <div>{JSON.stringify(data)}</div> : "Loading data..."}</div>
-      <button onClick={fetchUserData}>User</button>
+      <div>
+        <div>
+          {getData ? (
+            <>
+              <div>{JSON.stringify(getData)} </div>
+            </>
+          ) : (
+            "Loading..."
+          )}
+        </div>
+        <button onClick={fetchUserData}>GetUsers</button>
+      </div>
+      <br />
+      <div>
+        <div>
+          <form>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <input
+              type="number"
+              name="age"
+              placeholder="Age"
+              onChange={(e) => setAge(e.target.value)}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </form>
+        </div>
+        <button onClick={postUserData}>PostUser</button>
+        <div>
+          {postData ? (
+            <>
+              <div>{JSON.stringify(postData)} </div>
+            </>
+          ) : (
+            "Loading..."
+          )}
+        </div>
+      </div>
+      {/* <br /> */}
+      {/* <div>
+        <div>da</div>
+        <button>PatchUser</button>
+      </div>
+      <br />
+      <div>
+        <div>da</div>
+        <button>DeleteUser</button>
+      </div> */}
     </>
   );
 }

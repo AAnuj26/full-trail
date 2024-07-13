@@ -18,18 +18,6 @@ function App() {
   formData.append("email", email);
   formData.append("password", password);
 
-  console.log(formData);
-
-  // const dataToPost = {
-  //   name: name,
-  //   phone: phone,
-  //   age: age,
-  //   email: email,
-  //   password: password,
-  // };
-
-  // console.log(dataToPost);
-
   const fetchUserData = async () => {
     try {
       const gettingData = await fetch("/api/v1/getData", {
@@ -48,20 +36,6 @@ function App() {
   };
 
   const postUserData = async () => {
-    // try {
-    //   const postingData = await fetch("/api/v1/postData", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //     formData,
-    //   });
-    //   console.log(postingData);
-    //   setPostData(postingData);
-    // } catch (error) {
-    //   throw new Error(error);
-    // }
-
     try {
       const response = await axios.post("/api/v1/postData", formData, {
         headers: {
@@ -130,23 +104,13 @@ function App() {
         <div>
           {postData ? (
             <>
-              <div>{JSON.stringify(postData)} </div>
+              <div>{JSON.stringify(postData.data)} </div>
             </>
           ) : (
             "Loading..."
           )}
         </div>
       </div>
-      {/* <br /> */}
-      {/* <div>
-        <div>da</div>
-        <button>PatchUser</button>
-      </div>
-      <br />
-      <div>
-        <div>da</div>
-        <button>DeleteUser</button>
-      </div> */}
     </>
   );
 }

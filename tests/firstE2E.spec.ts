@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:4280");
+  // await page.goto("http://localhost:4280");
+  await page.goto("https://proud-mud-025936b0f.5.azurestaticapps.net");
 });
 
 test("GetUsers Sends And Receives A Response", async ({ page }) => {

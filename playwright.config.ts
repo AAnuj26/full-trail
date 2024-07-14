@@ -29,13 +29,24 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    // viewport: { width: 1280, height: 720 },
+    // isMobile: false,
+    // locale: 'en-GB',
+    // timezoneId: "Europe/Paris",
+    // permissions: ["notifications"],
+    // geolocation: { longitude: 12.492507, latitude: 41.889938 },
+    // permissions: ['geolocation'],
+    // colorScheme: "dark",
+    // offline: true
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      use: {
+        ...devices["Desktop Chrome"],
+      },
     },
 
     {

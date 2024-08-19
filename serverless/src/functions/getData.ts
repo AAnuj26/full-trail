@@ -85,6 +85,8 @@ export async function postData(
     password: password,
   };
 
+  console.log(document);
+
   try {
     await client.connect();
     const result = await client

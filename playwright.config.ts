@@ -38,6 +38,11 @@ export default defineConfig({
     // permissions: ['geolocation'],
     // colorScheme: "dark",
     // offline: true
+    proxy: {
+      server: "http://localhost:4280",
+      username: "user",
+      password: "secret",
+    },
   },
 
   /* Configure projects for major browsers */

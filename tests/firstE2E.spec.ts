@@ -11,6 +11,7 @@ test.describe("Fetching And Posting Data", () => {
   test.beforeEach(async ({ page, isMobile, context }) => {
     test.fixme(isMobile, "Settings page does not work in mobile yet");
     await page.goto("https://proud-mud-025936b0f.5.azurestaticapps.net");
+    //   // await page.goto("http://localhost:4280");
     await context.grantPermissions(["notifications"], {
       origin: "https://proud-mud-025936b0f.5.azurestaticapps.net",
     });

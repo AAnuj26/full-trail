@@ -75,6 +75,8 @@ export async function postData(
 
   const password = data.get("password");
 
+  console.log(name, phone, age, email, password);
+
   const document = {
     name: name,
     phone: phone,
@@ -82,6 +84,8 @@ export async function postData(
     email: email,
     password: password,
   };
+
+  console.log(document);
 
   try {
     await client.connect();
